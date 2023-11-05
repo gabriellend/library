@@ -10,21 +10,27 @@ const COMPLETED = "completed";
 const ABANDONED = "abandoned";
 
 const myLibrary = [
-  { title: "Love Sense", author: "Dr. Sue Johnson", status: IN_PROGRESS },
+  {
+    title: "Love Sense",
+    author: "Dr. Sue Johnson",
+    readingStatus: IN_PROGRESS,
+  },
   {
     title: "Hold Me Tight",
     author: "Dr. Sue Johnson",
-    status: NOT_STARTED,
+    readingStatus: NOT_STARTED,
   },
   {
     title: "Rich Dad, Poor Dad",
     author: "David Kamasaki",
-    status: IN_PROGRESS,
+    readingStatus: IN_PROGRESS,
   },
 ];
 
-function Book() {
-  // the constructor...
+function Book(title, author, readingStatus) {
+  this.title = title;
+  this.author = author;
+  this.readingStatus = readingStatus;
 }
 
 function addBookToLibrary(e) {
@@ -32,16 +38,12 @@ function addBookToLibrary(e) {
 
   const title = document.getElementById("title").value;
   const author = document.getElementById("author").value;
-  const status = document.getElementById("status").value;
+  const readingStatus = document.getElementById("readingStatus").value;
 
-  const book = {
-    title: title,
-    author: author,
-    status: status,
-  };
+  const book = new Book(title, author, readingStatus);
 
   myLibrary.push(book);
-  console.log(myLibrary);
+
   dialog.close();
   displayBooks(myLibrary);
 
@@ -52,7 +54,7 @@ function displayBooks(books) {
   bookUl.innerHTML = "";
   books.forEach((book) => {
     const li = document.createElement("li");
-    li.textContent = `${book.title} - by ${book.author} - ${book.status}`;
+    li.textContent = `${book.title} - by ${book.author} - ${book.readingStatus}`;
     bookUl.append(li);
   });
 }
